@@ -73,9 +73,10 @@ class Enquiry extends Admin_Controller {
         }
 
         $this->form_validation->set_rules('name', $this->lang->line('name'), 'trim|required|xss_clean');
-        $this->form_validation->set_rules('contact', $this->lang->line('phone'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('contact', $this->lang->line('phone'), 'trim|required|xss_clean|numeric|min_length[10]|max_length[10]');
         $this->form_validation->set_rules('source', $this->lang->line('source'), 'trim|required|xss_clean');
         $this->form_validation->set_rules('date', $this->lang->line('date'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|required|valid_email|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
 
@@ -84,6 +85,7 @@ class Enquiry extends Admin_Controller {
                 'contact' => form_error('contact'),
                 'source' => form_error('source'),
                 'date' => form_error('date'),
+                'email' => form_error('email'),
             );
 
             $array = array('status' => 'fail', 'error' => $msg, 'message' => '');

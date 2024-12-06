@@ -259,7 +259,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label><?php echo $this->lang->line('email'); ?></label>
-                                            <input type="text" value="<?php echo set_value('email'); ?>" name="email"
+                                            <input type="email" value="<?php echo set_value('email'); ?>" name="email"
                                                 class="form-control">
                                         </div>
                                     </div>
