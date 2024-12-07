@@ -1,14 +1,14 @@
 <footer class="main-footer">
-    &copy;  <?php echo date('Y'); ?> 
+    &copy; <?php echo date('Y'); ?>
     <?php echo $this->customlib->getAppName(); ?> <?php echo $this->customlib->getAppVersion(); ?>
 </footer>
 <div class="control-sidebar-bg"></div>
 </div>
 <script>
-    $.widget.bridge('uibutton', $.ui.button);
+$.widget.bridge('uibutton', $.ui.button);
 </script>
 
-<link href="<?php echo base_url(); ?>backend/toast-alert/toastr.css" rel="stylesheet"/>
+<link href="<?php echo base_url(); ?>backend/toast-alert/toastr.css" rel="stylesheet" />
 <script src="<?php echo base_url(); ?>backend/toast-alert/toastr.js"></script>
 
 <script src="<?php echo base_url(); ?>backend/bootstrap/js/bootstrap.min.js"></script>
@@ -27,10 +27,10 @@
 <!--language js-->
 <script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/js/bootstrap-select.min.js"></script>
 
- <script type="text/javascript">
-    $(function(){
-      $('.languageselectpicker').selectpicker();
-   });
+<script type="text/javascript">
+$(function() {
+    $('.languageselectpicker').selectpicker();
+});
 </script>
 
 <script src="<?php echo base_url(); ?>backend/dist/js/app.min.js"></script>
@@ -42,18 +42,22 @@
 
 <!--print table-->
 <!--print table-->
-<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/jquery.dataTables.min.js">
+</script>
+<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/dataTables.buttons.min.js">
+</script>
 <script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/jszip.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/pdfmake.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/vfs_fonts.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/buttons.print.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/buttons.colVis.min.js" ></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/dataTables.responsive.min.js" ></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/buttons.colVis.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/dataTables.responsive.min.js">
+</script>
 
-<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/ss.custom.js" ></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>backend/dist/datatables/js/ss.custom.js"></script>
 </body>
+
 </html>
 
 
@@ -66,14 +70,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><?php echo $this->lang->line('switch')." ".$this->lang->line('class');?></h4>
+                    <h4 class="modal-title"><?php echo $this->lang->line('switch')." ".$this->lang->line('class');?>
+                    </h4>
                 </div>
                 <div class="modal-body classSwitchbody">
 
                 </div>
                 <div class="modal-footer">
-                    
-                    <button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Please wait"><?php echo $this->lang->line('update');?></button>
+
+                    <button type="submit" class="btn btn-primary"
+                        data-loading-text="<i class='fa fa-spinner fa-spin '></i> Please wait"><?php echo $this->lang->line('update');?></button>
                 </div>
             </div>
 
@@ -83,160 +89,157 @@
 
 
 <script type="text/javascript">
+$("#frmclschg").on('submit', (function(e) {
+    e.preventDefault();
 
-    $("#frmclschg").on('submit', (function (e) {
-        e.preventDefault();
+    var form = $(this);
+    var $this = $(this).find("button[type=submit]:focus");
+    $.ajax({
+        url: form.attr('action'),
+        type: "POST",
+        data: form.serialize(), // serializes the form's elements.
+        dataType: 'json',
 
-         var form = $(this);
-        var $this = $(this).find("button[type=submit]:focus");
-        $.ajax({
-            url: form.attr('action'),
-            type: "POST",
-            data: form.serialize(), // serializes the form's elements.
-            dataType: 'json',
-          
-            beforeSend: function () {
-                $this.button('loading');
+        beforeSend: function() {
+            $this.button('loading');
 
-            },
-            success: function (res)
-            {
-                    if (res.status) {
+        },
+        success: function(res) {
+            if (res.status) {
 
-                     
-                        successMsg(res.message);
 
-                           window.location.href = baseurl + "user/user/dashboard";
+                successMsg(res.message);
 
-                    } else {
+                window.location.href = baseurl + "user/user/dashboard";
 
-                        errorMsg(res.message);
+            } else {
 
-                    }
-            },
-            error: function (xhr) { // if error occured
-                alert("Error occured.please try again");
-                $this.button('reset');
-            },
-            complete: function () {
-                $this.button('reset');
+                errorMsg(res.message);
+
             }
-
-        });
-    }));
-
-
-
-    $(document).on('change', '.clschg', function () {
-        if ($(this).is(":checked")) {
-
-            $('input.clschg').not(this).prop('checked', false);
-        } else {
-            $(this).prop("checked", true);
+        },
+        error: function(xhr) { // if error occured
+            alert("Error occured.please try again");
+            $this.button('reset');
+        },
+        complete: function() {
+            $this.button('reset');
         }
 
     });
+}));
 
-    $('#classSwitchModal').on('show.bs.modal', function (event) {
-        var $modalDiv = $(event.delegateTarget);
-        $('.classSwitchbody').html("");
-        $.ajax({
-            type: "POST",
-            url: baseurl + "common/getStudentSessionClasses",
-            dataType: 'JSON',
-            data: {},
-            beforeSend: function () {
-                $modalDiv.addClass('modal_loading');
-            },
-            success: function (data) {
-                $('.classSwitchbody').html(data.page);
-            },
-            error: function (xhr) { // if error occured
-                $modalDiv.removeClass('modal_loading');
-            },
-            complete: function () {
-                $modalDiv.removeClass('modal_loading');
-            },
-        });
+
+
+$(document).on('change', '.clschg', function() {
+    if ($(this).is(":checked")) {
+
+        $('input.clschg').not(this).prop('checked', false);
+    } else {
+        $(this).prop("checked", true);
+    }
+
+});
+
+$('#classSwitchModal').on('show.bs.modal', function(event) {
+    var $modalDiv = $(event.delegateTarget);
+    $('.classSwitchbody').html("");
+    $.ajax({
+        type: "POST",
+        url: baseurl + "common/getStudentSessionClasses",
+        dataType: 'JSON',
+        data: {},
+        beforeSend: function() {
+            $modalDiv.addClass('modal_loading');
+        },
+        success: function(data) {
+            $('.classSwitchbody').html(data.page);
+        },
+        error: function(xhr) { // if error occured
+            $modalDiv.removeClass('modal_loading');
+        },
+        complete: function() {
+            $modalDiv.removeClass('modal_loading');
+        },
     });
+});
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-<?php
+$(document).ready(function() {
+    <?php
 if ($this->session->flashdata('success_msg')) {
     ?>
-            successMsg("<?php echo $this->session->flashdata('success_msg'); ?>");
+    successMsg("<?php echo $this->session->flashdata('success_msg'); ?>");
     <?php
 } else if ($this->session->flashdata('error_msg')) {
     ?>
-            errorMsg("<?php echo $this->session->flashdata('error_msg'); ?>");
+    errorMsg("<?php echo $this->session->flashdata('error_msg'); ?>");
     <?php
 } else if ($this->session->flashdata('warning_msg')) {
     ?>
-            infoMsg("<?php echo $this->session->flashdata('warning_msg'); ?>");
+    infoMsg("<?php echo $this->session->flashdata('warning_msg'); ?>");
     <?php
 } else if ($this->session->flashdata('info_msg')) {
     ?>
-            warningMsg("<?php echo $this->session->flashdata('info_msg'); ?>");
+    warningMsg("<?php echo $this->session->flashdata('info_msg'); ?>");
     <?php
 }
 ?>
-    });
+});
 </script>
 
 
 
 <script type="text/javascript">
+function complete_event(id, status) {
 
+    $.ajax({
+        url: "<?php echo site_url("user/calendar/markcomplete/") ?>" + id,
+        type: "POST",
+        data: {
+            id: id,
+            active: status
+        },
+        dataType: 'json',
 
-    function complete_event(id, status) {
+        success: function(res) {
 
-        $.ajax({
-            url: "<?php echo site_url("user/calendar/markcomplete/") ?>" + id,
-            type: "POST",
-            data: {id: id, active: status},
-            dataType: 'json',
+            if (res.status == "fail") {
 
-            success: function (res)
-            {
+                var message = "";
+                $.each(res.error, function(index, value) {
 
-                if (res.status == "fail") {
+                    message += value;
+                });
+                errorMsg(message);
 
-                    var message = "";
-                    $.each(res.error, function (index, value) {
-
-                        message += value;
-                    });
-                    errorMsg(message);
-
-                } else {
-
-                    successMsg(res.message);
-
-                    window.location.reload(true);
-                }
-
-            }
-
-        });
-    }
-
-    function markc(id) {
-
-        $('#newcheck' + id).change(function () {
-
-            if (this.checked) {
-
-                complete_event(id, 'yes');
             } else {
 
-                complete_event(id, 'no');
+                successMsg(res.message);
+
+                window.location.reload(true);
             }
 
-        });
-    }
+        }
 
+    });
+}
+
+function markc(id) {
+
+    $('#newcheck' + id).change(function() {
+
+        if (this.checked) {
+
+            complete_event(id, 'yes');
+        } else {
+
+            complete_event(id, 'no');
+        }
+
+    });
+}
 </script>
 
 
@@ -248,19 +251,20 @@ if ($this->session->flashdata('success_msg')) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="sessionModalLabel"><?php echo $this->lang->line('session'); ?></h4>
                 </div>
                 <div class="modal-body user_sessionmodal_body pb0">
 
                 </div>
                 <div class="modal-footer">
-                   <div class="col-md-12">  
-                    <button type="button" class="btn btn-primary submit_usersession" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Please wait.."><?php echo $this->lang->line('save'); ?></button>
-                  </div>  
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary submit_usersession"
+                            data-loading-text="<i class='fa fa-spinner fa-spin '></i> Please wait.."><?php echo $this->lang->line('save'); ?></button>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
-

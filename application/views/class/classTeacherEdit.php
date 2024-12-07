@@ -58,9 +58,6 @@
                                     <select class="form-control" id="section_id" name="section" readonly>
                                         <option value=""><?php echo $this->lang->line('select') ?></option> 
                                     </select>
-
-
-
                                     <span class="text-danger"><?php echo form_error('section'); ?></span>
                                 </div>
 
