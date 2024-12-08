@@ -201,7 +201,7 @@ if ($this->session->flashdata('success_msg')) {
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="sessionModalLabel"><?php echo $this->lang->line('session'); ?></h4>
                     </div>
-                    <div class="modal-body sessionmodal_body pb0">
+                    <div class="modal-body sessionmodal_body pb0" style="margin-left:-110px">
 
                     </div>
                     <div class="modal-footer">
